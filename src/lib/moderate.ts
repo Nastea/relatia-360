@@ -7,6 +7,13 @@ export type ModerationResult = {
 };
 
 export async function moderateText(input: string): Promise<ModerationResult> {
+  if (!openai) {
+    // Return safe default if OpenAI is not configured
+    return {
+      flagged: false,
+      input,
+    };
+  }
   const res = await openai.moderations.create({
     model: "omni-moderation-latest",
     input,

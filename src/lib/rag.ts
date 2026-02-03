@@ -15,6 +15,9 @@ export type Meta = {
 };
 
 export async function embed(text: string) {
+  if (!openai) {
+    throw new Error("OpenAI API key is not configured. AI features are disabled.");
+  }
   const e = await openai.embeddings.create({
     model: EMBEDDING_MODEL,
     input: text,

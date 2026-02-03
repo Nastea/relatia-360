@@ -1,14 +1,22 @@
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
+// Only initialize OpenAI if API key is provided (for AI features)
+// This allows the site to build without AI features if API key is missing
+const openai = process.env.OPENAI_API_KEY
+  ? new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    })
+  : null;
 
-export { openai }; // ✅ export corect instanța
+export { openai }; // ✅ export corect instanța (poate fi null dacă nu există API key)
 export const DEFAULT_MODEL = "gpt-4o";
 export const EMBEDDING_MODEL = "text-embedding-3-small"; // ✅ necesar pentru RAG
 
 export async function generateCoachResponse(message: string, lessonId: number, flowState: string) {
+  if (!openai) {
+    throw new Error("OpenAI API key is not configured. AI features are disabled.");
+  }
+
   const prompt = buildPrompt(message, lessonId, flowState);
 
   const res = await openai.chat.completions.create({
