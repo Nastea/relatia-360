@@ -15,6 +15,9 @@ export async function POST(req: NextRequest) {
       return Response.json({ error: "No file" }, { status: 400 });
     }
 
+    if (!openai) {
+      return Response.json({ error: "OpenAI API key is not configured. AI features are disabled." }, { status: 503 });
+    }
     const tr = await openai.audio.transcriptions.create({
       model: "whisper-1",
       file,

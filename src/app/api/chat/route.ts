@@ -18,6 +18,9 @@ function rateLimit(ip: string, max = 40, window = 60000) {
 }
 
 async function complete(messages: ChatCompletionMessageParam[]) {
+  if (!openai) {
+    throw new Error("OpenAI API key is not configured. AI features are disabled.");
+  }
   const comp = await openai.chat.completions.create({
     model: DEFAULT_MODEL,
     messages,
