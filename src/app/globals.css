@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+:root {
+  --background: #171717;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens */
+:root {
+  --bg: 255 255 255;           /* white */
+  --fg: 17 24 39;              /* neutral-900 */
+  --muted: 107 114 128;        /* neutral-500 */
+  --border: 229 231 235;       /* neutral-200 */
+  --surface: 250 250 250;      /* neutral-50 */
+
+  --brand: 24 24 27;           /* near-black */
+  --brand-fg: 255 255 255;     /* white */
+
+  --soft: 243 244 246;         /* neutral-100 */
+  --soft-fg: 31 41 55;         /* neutral-800 */
+
+  --warn-bg: 254 252 232;      /* amber-50 */
+  --warn-fg: 146 64 14;        /* amber-800 */
+
+  --danger-bg: 254 242 242;    /* rose-50 */
+  --danger-fg: 159 18 57;      /* rose-700 */
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  @apply antialiased;
+  background-color: rgb(var(--surface));
+  color: rgb(var(--fg));
+  font-feature-settings: "liga" 1, "calt" 1, "ss01" 1, "ss02" 1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Layout helpers */
+.container {
+  @apply mx-auto max-w-6xl px-4 sm:px-6 py-10;
+  width: 100%;
+  max-width: 100%;
+}
+
+.stack {
+  @apply flex flex-col;
+}
+
+.row {
+  @apply flex flex-row;
+}
+
+/* Typography */
+.headline {
+  @apply text-4xl font-semibold tracking-tight md:text-5xl;
+}
+
+.title {
+  @apply text-xl font-semibold tracking-tight;
+}
+
+.card-title {
+  @apply text-lg font-semibold;
+}
+
+.muted {
+  color: rgb(var(--muted));
+}
+
+.tiny {
+  @apply text-xs;
+}
+
+/* Cards & surfaces */
+.card {
+  @apply rounded-2xl border bg-white p-5 shadow-sm;
+  border-color: rgb(var(--border));
+}
+
+.hero {
+  @apply rounded-3xl border bg-white p-10 shadow-sm;
+  border-color: rgb(var(--border));
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition;
+}
+
+.btn-primary {
+  background-color: rgb(var(--brand));
+  color: rgb(var(--brand-fg));
+}
+.btn-primary:hover {
+  @apply opacity-90;
+}
+
+.btn-outline {
+  @apply border;
+  border-color: rgb(var(--border));
+  background-color: transparent;
+  color: rgb(var(--fg));
+}
+.btn-outline:hover {
+  background-color: rgb(var(--soft));
+  color: rgb(var(--soft-fg));
+}
+
+.btn-soft {
+  background-color: rgb(var(--soft));
+  color: rgb(var(--soft-fg));
+}
+.btn-soft:hover {
+  @apply opacity-90;
+}
+
+/* Links */
+.link {
+  @apply underline underline-offset-4;
+}
+
+/* Callouts */
+.callout {
+  @apply rounded-2xl border p-4;
+  border-color: rgb(var(--border));
+}
+.callout.warn {
+  background-color: rgb(var(--warn-bg));
+  color: rgb(var(--warn-fg));
+  border-color: rgb(var(--warn-bg));
+}
+.callout.danger {
+  background-color: rgb(var(--danger-bg));
+  color: rgb(var(--danger-fg));
+  border-color: rgb(var(--danger-bg));
+}
+
+/* Divider */
+.divider {
+  @apply my-2 h-px w-full;
+  background-color: rgb(var(--border));
+}
+
+/* Forms */
+input[type="text"],
+input[type="url"],
+textarea {
+  @apply w-full rounded-lg border bg-white p-3 text-sm outline-none transition;
+  border-color: rgb(var(--border));
+}
+input[type="text"]:focus,
+input[type="url"]:focus,
+textarea:focus {
+  @apply ring-2 ring-black ring-offset-0;
+}
